@@ -117,8 +117,7 @@ class InclinometryCalc:
         self.export_folder = '/'
         self.processing_type = XY_DATA_TYPE
         self.magnetic_declination = 0.0
-        self.current_meridian_correction = 0.0
-        self.incl_file_data = np.array([[]])
+        self.incl_file_data = np.array([])
         self.incl_file_columns: List[str] = []
 
         self.points_file_data = []
@@ -252,7 +251,6 @@ class InclinometryCalc:
         ui.cbPointColumn.clear()
         ui.cbMDPointColumn.clear()
         ui.sbMagneticAzimuthCorrection.setValue(0)
-        ui.sbMeridianCorrection.setValue(0)
         ui.eExportFolder.clear()
 
     def fill_incl_column_selectors(self, items):
@@ -282,8 +280,8 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(False)
             self.processing_type = XY_DATA_TYPE
             self.magnetic_declination = 0
+            self.dlg.bCalcMeridianCorrection.setEnabled(True)
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
-            self.dlg.sbMeridianCorrection.setEnabled(True)
         else:
             self.dlg.cbDxColumn.setEnabled(False)
             self.dlg.cbDyColumn.setEnabled(False)
@@ -292,9 +290,8 @@ class InclinometryCalc:
             self.dlg.cbAzimuthColumn.setEnabled(True)
             self.dlg.cbInclinationColumn.setEnabled(True)
             self.processing_type = MD_DATA_TYPE
-            self.current_meridian_correction = 0
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
-            self.dlg.sbMeridianCorrection.setEnabled(False)
+            self.dlg.bCalcMeridianCorrection.setDisabled(True)
 
     def get_form_data(self):
         x, y = self.dlg.sbXValue.value(), self.dlg.sbYValue.value()
@@ -305,8 +302,6 @@ class InclinometryCalc:
         self.crs_id = coord_id
         self.magnetic_declination = \
             self.dlg.sbMagneticAzimuthCorrection.value()
-        self.current_meridian_correction = \
-            self.dlg.sbMeridianCorrection.value()
         self.well_name = self.dlg.eWellName.text()
 
     def open_incl_file(self):
@@ -367,8 +362,7 @@ class InclinometryCalc:
 
         well = Well(self.well_head_coords[0], self.well_head_coords[1],
                     self.well_head_coords[2], self.crs_id,
-                    self.magnetic_declination,
-                    self.current_meridian_correction, self.processing_type,
+                    self.magnetic_declination, self.processing_type,
                     data)
         well.processing()
 

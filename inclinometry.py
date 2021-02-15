@@ -33,7 +33,6 @@ class DataTypeError(Exception):
 class Well:
     def __init__(self, x: float, y: float, altitude: float,
                  crs_id: int, magnetic_declination: float,
-                 current_meridian_correction: float,
                  inclination_type: str, inclination_data: np.ndarray):
         self.__well_head = (x, y, altitude)
         self.__crs_id = crs_id
@@ -44,10 +43,8 @@ class Well:
 
         if inclination_type == MD_DATA_TYPE:
             self.__magnetic_declination = magnetic_declination
-            self.__current_meridian_correction = 0
         else:
             self.__magnetic_declination = 0
-            self.__current_meridian_correction = current_meridian_correction
 
         self.__incl_data = np.zeros(shape=(inclination_data.shape[0],
                                            ColumnIndexes.length))
@@ -120,8 +117,7 @@ class Well:
 
     @property
     def total_angle_correction(self) -> float:
-        return self.__magnetic_declination - self.meridian_correction + \
-            self.__current_meridian_correction
+        return self.__magnetic_declination - self.meridian_correction
 
     def calc_inclinometry_by_md(self):
         arr = self.__incl_data
@@ -175,9 +171,7 @@ class Well:
         arr[0, ColumnIndexes.x_global] = x_gk_head
         arr[0, ColumnIndexes.y_global] = y_gk_head
 
-        rotate_angle = 2 * self.meridian_correction - \
-            self.__current_meridian_correction
-        rotate_angle = radians(rotate_angle)
+        rotate_angle = radians(self.meridian_correction)
         for i in range(1, arr.shape[0]):
             dx = arr[i, ColumnIndexes.x_local] - arr[i - 1, ColumnIndexes.x_local]
             dy = arr[i, ColumnIndexes.y_local] - arr[i - 1, ColumnIndexes.y_local]
