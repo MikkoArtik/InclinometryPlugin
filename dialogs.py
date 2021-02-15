@@ -1,6 +1,13 @@
 from PyQt5.QtWidgets import *
 
 
+def show_message(message_text):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setText(message_text)
+    msg.exec_()
+
+
 def show_file_dialog():
     file_dialog = QFileDialog()
     file_dialog.setFileMode(QFileDialog.ExistingFile)

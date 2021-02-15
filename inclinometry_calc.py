@@ -38,6 +38,7 @@ from typing import List
 
 import numpy as np
 
+from .dialogs import show_message
 from .dialogs import show_folder_dialog
 from .dialogs import show_file_dialog
 
@@ -68,7 +69,7 @@ def create_well_horizontal_trace(export_path, well_name, point_coords,
     writer.addFeature(feat)
 
 
-def get_interpolate_points_data(points_data, well_data: Well):
+def get_interpolate_points_data(points_data: list, well_data: Well) -> list:
     result = []
     for name, md in points_data:
         t = [name] + well_data.interpolate_data(md).tolist()
@@ -342,10 +343,8 @@ class InclinometryCalc:
         self.dlg.eExportFolder.setText(self.export_folder)
 
     def get_used_points_column_indexes(self):
-        column_indexes = []
-        column_indexes.append(self.dlg.cbPointColumn.currentIndex())
-        column_indexes.append(self.dlg.cbMDPointColumn.currentIndex())
-        return column_indexes
+        col_1, col_2 = self.dlg.cbPointColumn, self.dlg.cbMDPointColumn
+        return [col_1.currentIndex(), col_2.currentIndex()]
 
     def get_used_incl_column_indexes(self):
         column_indexes = []
@@ -402,6 +401,7 @@ class InclinometryCalc:
                         value = float(value)
                     t.append(value)
                 points_data.append(t)
+
             result = get_interpolate_points_data(points_data, well)
 
             file_name = f'{self.well_name}_MD_Points.dat'

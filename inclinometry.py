@@ -1,5 +1,5 @@
 from typing import NamedTuple
-from math import inf, cos, sin, radians, degrees, acos, atan2
+from math import cos, sin, radians
 
 import numpy as np
 
@@ -23,7 +23,6 @@ class ColumnIndexes(NamedTuple):
     altitude = 6
     x_global = 7
     y_global = 8
-
     length = 9
 
 
@@ -36,7 +35,7 @@ class Well:
                  crs_id: int, magnetic_declination: float,
                  current_meridian_correction: float,
                  inclination_type: str, inclination_data: np.ndarray):
-        self.__well_head = [x, y, altitude]
+        self.__well_head = (x, y, altitude)
         self.__crs_id = crs_id
 
         if inclination_type not in (MD_DATA_TYPE, XY_DATA_TYPE):
@@ -71,49 +70,17 @@ class Well:
 
     @staticmethod
     def get_result_azimuth(az_value) -> float:
-        if az_value >= 360:
-            return az_value % 360
-        if az_value < 0:
-            return 360 + az_value % 360
-        return az_value
+        az_value %= 360
+        if az_value >= 0:
+            return az_value
+        else:
+            return 360 + az_value
 
     def get_middle_angle(self, alpha: float, beta: float) -> float:
         if abs(alpha - beta) <= 180:
             return (alpha + beta) / 2
         result = min(alpha, beta) - (360 - abs(alpha - beta)) / 2
         return self.get_result_azimuth(result)
-
-    @staticmethod
-    def get_md(dx: float, dy: float, dz: float) -> float:
-        return (dx ** 2 + dy ** 2 + dz ** 2) ** 0.5
-
-    @staticmethod
-    def get_azimuth(dx: float, dy: float) -> float:
-        if dx == 0 and dy == 0:
-            return inf
-        if dx == 0 and dy > 0:
-            return 0
-        if dx == 0 and dy < 0:
-            return 180
-        if dy == 0 and dx > 0:
-            return 90
-        if dy == 0 and dx < 0:
-            return 270
-
-        angle = degrees(atan2(abs(dy), abs(dx)))
-        if dx > 0 and dy > 0:
-            return 90 - angle
-        elif dx > 0 > dy:
-            return 90 + angle
-        elif dx < 0 and dy < 0:
-            return 270 - angle
-        else:
-            return 270 + angle
-
-    def get_inclination(self, dx: float, dy: float, dz: float,
-                        previous_inl_value: float) -> float:
-        md = self.get_md(dx, dy, dz)
-        return 2 * degrees(acos(dz / md)) - previous_inl_value
 
     def transform_xy_coordinates(self, x: float, y: float, source_crs_id: int,
                                  target_crs_id: int) -> tuple:
@@ -156,16 +123,13 @@ class Well:
         return self.__magnetic_declination - self.meridian_correction + \
             self.__current_meridian_correction
 
-    def add_azimuth_correction(self):
+    def calc_inclinometry_by_md(self):
         arr = self.__incl_data
         for i in range(arr.shape[0]):
             az = arr[i, ColumnIndexes.az] + self.total_angle_correction
             az = self.get_result_azimuth(az)
             arr[i, ColumnIndexes.az] = az
 
-    def calc_inclinometry_by_md(self):
-        self.add_azimuth_correction()
-        arr = self.__incl_data
         x_gk_head, y_gk_head = self.transform_xy_coordinates(
                 self.__well_head[0], self.__well_head[1], self.__crs_id,
                 self.gk_crs_id)
@@ -199,8 +163,7 @@ class Well:
     def calc_inclinometry_by_xyz(self):
         arr = self.__incl_data
 
-        x0 = arr[0, ColumnIndexes.x_local]
-        y0 = arr[0, ColumnIndexes.y_local]
+        x0, y0 = arr[0, ColumnIndexes.x_local], arr[0, ColumnIndexes.y_local]
         z0 = arr[0, ColumnIndexes.depth]
         arr[:, ColumnIndexes.x_local] -= x0
         arr[:, ColumnIndexes.y_local] -= y0
@@ -211,31 +174,24 @@ class Well:
             self.gk_crs_id)
         arr[0, ColumnIndexes.x_global] = x_gk_head
         arr[0, ColumnIndexes.y_global] = y_gk_head
+
+        rotate_angle = 2 * self.meridian_correction - \
+            self.__current_meridian_correction
+        rotate_angle = radians(rotate_angle)
         for i in range(1, arr.shape[0]):
             dx = arr[i, ColumnIndexes.x_local] - arr[i - 1, ColumnIndexes.x_local]
             dy = arr[i, ColumnIndexes.y_local] - arr[i - 1, ColumnIndexes.y_local]
             dz = arr[i, ColumnIndexes.depth] - arr[i - 1, ColumnIndexes.depth]
-
-            delta_md = self.get_md(dx, dy, dz)
-            incl = self.get_inclination(dx, dy, dz, arr[i - 1, ColumnIndexes.incl])
-            az = self.get_azimuth(dx, dy) + self.total_angle_correction
-            az = self.get_result_azimuth(az)
-
-            dx = delta_md * sin(incl) * sin(az)
-            dy = delta_md * sin(incl) * cos(az)
-            x_local = arr[i - 1, ColumnIndexes.x_local] + dx
-            y_local = arr[i - 1, ColumnIndexes.y_local] + dy
-
-            arr[i, ColumnIndexes.x_local] = x_local
-            arr[i, ColumnIndexes.y_local] = y_local
-            arr[i, ColumnIndexes.x_global] = x_local + x_gk_head
-            arr[i, ColumnIndexes.y_global] = y_local + y_gk_head
-
+            delta_md = (dx ** 2 + dy ** 2 + dz ** 2) ** 0.5
             arr[i, ColumnIndexes.md] = arr[i - 1, ColumnIndexes.md] + delta_md
-            arr[i, ColumnIndexes.incl] = incl
-            arr[i, ColumnIndexes.az] = az
-            arr[i, ColumnIndexes.altitude] = \
-                arr[i-1, ColumnIndexes.altitude] - dz
+
+            dx_old = arr[i, ColumnIndexes.x_local]
+            dy_old = arr[i, ColumnIndexes.y_local]
+            dx_new = dx_old * cos(rotate_angle) - dy_old * sin(rotate_angle)
+            dy_new = dx_old * sin(rotate_angle) + dy_old * cos(rotate_angle)
+
+            arr[i, ColumnIndexes.x_global] = x_gk_head + dx_new
+            arr[i, ColumnIndexes.y_global] = y_gk_head + dy_new
 
     def processing(self):
         calculation_function = {MD_DATA_TYPE: self.calc_inclinometry_by_md,
@@ -281,9 +237,10 @@ class Well:
         for i, index in enumerate(column_indexes):
             result_arr[:, i] = self.__incl_data[:, index]
 
-        for i in range(result_arr.shape[0]):
-            az = result_arr[i, 2] - self.total_angle_correction + \
-                self.__magnetic_declination
-            az = self.get_result_azimuth(az)
-            result_arr[:, 2] = az
+        if self.__incl_type == MD_DATA_TYPE:
+            for i in range(result_arr.shape[0]):
+                az = result_arr[i, 2] - self.total_angle_correction + \
+                    self.__magnetic_declination
+                az = self.get_result_azimuth(az)
+                result_arr[i, 2] = az
         return result_arr
