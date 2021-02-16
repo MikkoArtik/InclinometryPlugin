@@ -186,6 +186,7 @@ class Well:
 
             arr[i, ColumnIndexes.x_global] = x_gk_head + dx_new
             arr[i, ColumnIndexes.y_global] = y_gk_head + dy_new
+            arr[i, ColumnIndexes.altitude] = self.__well_head[2] - arr[i, ColumnIndexes.depth]
 
     def processing(self):
         calculation_function = {MD_DATA_TYPE: self.calc_inclinometry_by_md,

@@ -48,7 +48,8 @@ from .inclinometry import MD_DATA_TYPE, XY_DATA_TYPE
 from .inclinometry import Well
 
 from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
-    QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, QgsFeature
+    QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, \
+    QgsFeature, QgsVectorLayer, QgsProject
 
 
 def create_well_horizontal_trace(export_path, well_name, point_coords,
@@ -352,10 +353,48 @@ class InclinometryCalc:
             column_indexes.append(self.dlg.cbAzimuthColumn.currentIndex())
         return column_indexes
 
+    def export_inclination_file(self, well: Well, export_path: str):
+        meridian_correction = well.meridian_correction
+        header = well.export_file_header
+        export_data = well.get_export_array()
+        header = '\t'.join(header)
+
+        with open(export_path, 'w') as f:
+            f.write(f'Meridian correction = {meridian_correction}\n')
+            f.write(f'Magnetic declination = {self.magnetic_declination}\n')
+            np.savetxt(f, export_data, '%f', '\t', header=header,
+                       comments='')
+
+    def export_interpolation_data(self, well: Well, export_path: str):
+        if len(self.points_file_data) == 0:
+            return
+
+        points_data = []
+        for item in self.points_file_data:
+            t = []
+            for i in self.get_used_points_column_indexes():
+                value = item[i]
+                if i == 1:
+                    value = float(value)
+                t.append(value)
+            points_data.append(t)
+
+        result = get_interpolate_points_data(points_data, well)
+        header = ['Point', 'MD', 'x', 'y', 'Depth', 'Altitude']
+        with open(export_path, 'w') as f:
+            f.write('\t'.join(header)+'\n')
+            for t in result:
+                f.write('\t'.join(list(map(str, t))) + '\n')
+
+    def load_vector_layer(self, file_path):
+        layer = QgsVectorLayer(file_path, self.well_name, 'ogr')
+        if not layer.isValid():
+            return
+        QgsProject.instance().addMapLayer(layer)
+
     def proc(self):
         self.get_form_data()
         column_indexes = self.get_used_incl_column_indexes()
-
         data = self.incl_file_data[:, column_indexes]
 
         well = Well(self.well_head_coords[0], self.well_head_coords[1],
@@ -364,45 +403,22 @@ class InclinometryCalc:
                     data)
         well.processing()
 
-        meridian_correction = well.meridian_correction
-        header = well.export_file_header
-        export_data = well.get_export_array()
-
-        header = '\t'.join(header)
-
         file_name = f'{self.well_name}_inclination.dat'
         export_path = os.path.join(self.export_folder, file_name)
-        with open(export_path, 'w') as f:
-            f.write(f'Meridian correction = {meridian_correction}\n')
-            f.write(f'Magnetic declination = {self.magnetic_declination}\n')
-            np.savetxt(f, export_data, '%f', '\t', header=header,
-                       comments='')
+        self.export_inclination_file(well, export_path)
 
         file_name = f'{self.well_name}_hor_trace.shp'
-        export_path = os.path.join(self.export_folder, file_name)
-        create_well_horizontal_trace(export_path, self.well_name,
+        shp_path = os.path.join(self.export_folder, file_name)
+        export_data = well.get_export_array()
+        create_well_horizontal_trace(shp_path, self.well_name,
                                      export_data[:, [3, 4]],
                                      crs_id=well.gk_crs_id)
-        if len(self.points_file_data) > 0:
-            points_data = []
-            for item in self.points_file_data:
-                t = []
-                for i in self.get_used_points_column_indexes():
-                    value = item[i]
-                    if i == 1:
-                        value = float(value)
-                    t.append(value)
-                points_data.append(t)
 
-            result = get_interpolate_points_data(points_data, well)
+        file_name = f'{self.well_name}_MD_Points.dat'
+        export_path = os.path.join(self.export_folder, file_name)
+        self.export_interpolation_data(well, export_path)
 
-            file_name = f'{self.well_name}_MD_Points.dat'
-            export_path = os.path.join(self.export_folder, file_name)
-            header = ['Point', 'MD', 'x', 'y', 'Depth', 'Altitude']
-            with open(export_path, 'w') as f:
-                f.write('\t'.join(header)+'\n')
-                for t in result:
-                    f.write('\t'.join(list(map(str, t))) + '\n')
+        self.load_vector_layer(shp_path)
 
     def run(self):
         """Run method that performs all the real work"""
@@ -412,9 +428,5 @@ class InclinometryCalc:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            # self.get_form_data()
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
             pass
-
         self.set_start_form_state()
