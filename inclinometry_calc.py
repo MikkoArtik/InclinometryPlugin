@@ -280,7 +280,6 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(False)
             self.processing_type = XY_DATA_TYPE
             self.magnetic_declination = 0
-            self.dlg.bCalcMeridianCorrection.setEnabled(True)
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
         else:
             self.dlg.cbDxColumn.setEnabled(False)
@@ -291,7 +290,6 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(True)
             self.processing_type = MD_DATA_TYPE
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
-            self.dlg.bCalcMeridianCorrection.setDisabled(True)
 
     def get_form_data(self):
         x, y = self.dlg.sbXValue.value(), self.dlg.sbYValue.value()

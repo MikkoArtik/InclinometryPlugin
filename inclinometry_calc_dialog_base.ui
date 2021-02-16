@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>647</width>
-    <height>477</height>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -398,7 +398,7 @@
    <property name="geometry">
     <rect>
      <x>12</x>
-     <y>388</y>
+     <y>354</y>
      <width>629</width>
      <height>55</height>
     </rect>
@@ -449,8 +449,8 @@
   <widget class="QPushButton" name="bApply">
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>446</y>
+     <x>274</x>
+     <y>412</y>
      <width>89</width>
      <height>25</height>
     </rect>
@@ -462,8 +462,8 @@
   <widget class="QLabel" name="label_15">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>364</y>
+     <x>294</x>
+     <y>70</y>
      <width>149</width>
      <height>17</height>
     </rect>
@@ -478,46 +478,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>360</y>
-     <width>103</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="decimals">
-    <number>6</number>
-   </property>
-   <property name="minimum">
-    <double>-100.000000000000000</double>
-   </property>
-   <property name="maximum">
-    <double>100.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>0.000001000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_16">
-   <property name="geometry">
-    <rect>
-     <x>268</x>
-     <y>364</y>
-     <width>241</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Current system meridian correction</string>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="sbMeridianCorrection">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>514</x>
-     <y>360</y>
+     <x>442</x>
+     <y>66</y>
      <width>103</width>
      <height>26</height>
     </rect>
