@@ -6,7 +6,7 @@
 name=Inclinometry calculator
 qgisMinimumVersion=3.0
 description=Plugin for inclinometry processing
-version=0.2
+version=0.3
 author=Michael Chernov
 email=mihail.tchernov@yandex.ru
 
