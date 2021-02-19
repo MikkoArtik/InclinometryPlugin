@@ -1,47 +1,23 @@
-# This file contains metadata for your plugin.
-
-# This file should be included when you package your plugin.# Mandatory items:
-
 [general]
 name=Inclinometry calculator
 qgisMinimumVersion=3.0
+qgisMaximumVersion=3.99
 description=Plugin for inclinometry processing
+about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
+category=Plugins
 version=0.3
 author=Michael Chernov
 email=mihail.tchernov@yandex.ru
 
-about=Данный плагин предназначен для расчета горизонтальной проекции скважины
+changelog=
+    0.3 : Add automatically adding horizontal trace to QGIS map
 
-tracker=http://bugs
-repository=http://repo
-# End of mandatory metadata
+tags=inclinometry, wellbore, well
 
-# Recommended items:
-
-hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=
-
-# Tags are comma separated with spaces allowed
-tags=python
-
-homepage=http://homepage
-category=Plugins
+homepage=https://github.com/MikkoArtik
+tracker=https://github.com/MikkoArtik/InclinometryPlugin/issues
+repository=https://github.com/MikkoArtik/InclinometryPlugin
 icon=icon.png
-# experimental flag
+
 experimental=True
-
-# deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
-
-# Since QGIS 3.8, a comma separated list of plugins to be installed
-# (or upgraded) can be specified.
-# Check the documentation for more information.
-# plugin_dependencies=
-
-Category of the plugin: Raster, Vector, Database or Web
-# category=
-
-# If the plugin can run on QGIS Server.
-server=False
-

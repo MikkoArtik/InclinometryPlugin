@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>Inclinometry calculator</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -615,6 +618,30 @@
    <header>qgsprojectionselectionwidget.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>eInclFilePath</tabstop>
+  <tabstop>bOpenInclFile</tabstop>
+  <tabstop>ePointsFilePath</tabstop>
+  <tabstop>bOpenPointsFile</tabstop>
+  <tabstop>cbProcessingType</tabstop>
+  <tabstop>sbMagneticAzimuthCorrection</tabstop>
+  <tabstop>cbDxColumn</tabstop>
+  <tabstop>cbDyColumn</tabstop>
+  <tabstop>cbVerticalDepthColumn</tabstop>
+  <tabstop>cbMDColumn</tabstop>
+  <tabstop>cbInclinationColumn</tabstop>
+  <tabstop>cbAzimuthColumn</tabstop>
+  <tabstop>cbPointColumn</tabstop>
+  <tabstop>cbMDPointColumn</tabstop>
+  <tabstop>eWellName</tabstop>
+  <tabstop>mProjection</tabstop>
+  <tabstop>sbXValue</tabstop>
+  <tabstop>sbYValue</tabstop>
+  <tabstop>sbWellHeadAltitude</tabstop>
+  <tabstop>eExportFolder</tabstop>
+  <tabstop>eOpenFolder</tabstop>
+  <tabstop>bApply</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
