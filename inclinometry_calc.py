@@ -1,5 +1,6 @@
 import os.path
 from typing import List
+import webbrowser as wb
 
 import numpy as np
 
@@ -13,8 +14,6 @@ from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
     QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, \
     QgsFeature, QgsVectorLayer, QgsProject
 
-# Initialize Qt resources from file resources.py
-# Import the code for the dialog
 from .inclinometry_calc_dialog import InclinometryCalcDialog
 
 from .Core.dialogs import show_folder_dialog
@@ -24,6 +23,11 @@ from .Core.file_import import load_incl_file
 from .Core.file_import import load_points_file
 from .Core.inclinometry import MD_DATA_TYPE, XY_DATA_TYPE
 from .Core.inclinometry import Well
+
+from . import qtawesome as qta
+
+
+HELP_PAGE = 'https://github.com/MikkoArtik'
 
 
 def create_well_horizontal_trace(export_path, well_name, point_coords,
@@ -101,6 +105,7 @@ class InclinometryCalc:
         self.well_head_coords = [0., 0., 0.]
         self.well_name = ''
 
+        self.dlg.bHelp.clicked.connect(self.open_help_page)
         self.dlg.bOpenInclFile.clicked.connect(self.open_incl_file)
         self.dlg.bOpenPointsFile.clicked.connect(self.open_points_file)
         self.dlg.cbProcessingType.currentTextChanged.connect(
@@ -254,6 +259,9 @@ class InclinometryCalc:
             self.processing_type = XY_DATA_TYPE
             self.magnetic_declination = 0
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
+            self.dlg.bOpenPointsFile.setEnabled(False)
+            self.dlg.cbPointColumn.setEnabled(False)
+            self.dlg.cbMDPointColumn.setEnabled(False)
         else:
             self.dlg.cbDxColumn.setEnabled(False)
             self.dlg.cbDyColumn.setEnabled(False)
@@ -263,6 +271,9 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(True)
             self.processing_type = MD_DATA_TYPE
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
+            self.dlg.bOpenPointsFile.setEnabled(True)
+            self.dlg.cbPointColumn.setEnabled(True)
+            self.dlg.cbMDPointColumn.setEnabled(True)
 
     def get_form_data(self):
         x, y = self.dlg.sbXValue.value(), self.dlg.sbYValue.value()
@@ -392,9 +403,29 @@ class InclinometryCalc:
 
         self.load_vector_layer(shp_path)
 
+    @staticmethod
+    def open_help_page():
+        wb.open(HELP_PAGE)
+
+    def set_styles(self):
+        icon = qta.icon('fa5s.question-circle', color='orange',
+                        color_active='blue')
+        self.dlg.bHelp.setIcon(icon)
+
+        icon = qta.icon('fa5s.folder-open', color='orange',
+                        color_active='blue')
+        self.dlg.bOpenInclFile.setIcon(icon)
+        self.dlg.bOpenPointsFile.setIcon(icon)
+        self.dlg.eOpenFolder.setIcon(icon)
+
+        icon = qta.icon('fa5s.calculator', color='orange',
+                        color_active='blue')
+        self.dlg.bApply.setIcon(icon)
+
     def run(self):
         """Run method that performs all the real work"""
         # show the dialog
+        self.set_styles()
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()

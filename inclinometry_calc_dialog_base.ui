@@ -31,8 +31,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>70</y>
+     <x>48</x>
+     <y>10</y>
      <width>111</width>
      <height>17</height>
     </rect>
@@ -44,8 +44,8 @@
   <widget class="QComboBox" name="cbProcessingType">
    <property name="geometry">
     <rect>
-     <x>126</x>
-     <y>66</y>
+     <x>162</x>
+     <y>6</y>
      <width>161</width>
      <height>25</height>
     </rect>
@@ -64,8 +64,8 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>100</y>
+     <x>6</x>
+     <y>94</y>
      <width>627</width>
      <height>85</height>
     </rect>
@@ -76,22 +76,22 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>22</x>
+      <x>8</x>
       <y>28</y>
-      <width>23</width>
+      <width>45</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>x</string>
+     <string>x (WE)</string>
     </property>
    </widget>
    <widget class="QComboBox" name="cbDxColumn">
     <property name="geometry">
      <rect>
-      <x>36</x>
+      <x>54</x>
       <y>24</y>
-      <width>163</width>
+      <width>145</width>
       <height>25</height>
      </rect>
     </property>
@@ -99,22 +99,22 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>218</x>
-      <y>26</y>
-      <width>31</width>
+      <x>202</x>
+      <y>28</y>
+      <width>37</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>y</string>
+     <string>y(SN)</string>
     </property>
    </widget>
    <widget class="QComboBox" name="cbDyColumn">
     <property name="geometry">
      <rect>
-      <x>228</x>
+      <x>240</x>
       <y>24</y>
-      <width>169</width>
+      <width>157</width>
       <height>25</height>
      </rect>
     </property>
@@ -122,7 +122,7 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>8</x>
+      <x>24</x>
       <y>58</y>
       <width>31</width>
       <height>17</height>
@@ -138,11 +138,14 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>36</x>
+      <x>54</x>
       <y>52</y>
-      <width>165</width>
+      <width>147</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Borehole depth</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -174,14 +177,14 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>404</x>
+      <x>406</x>
       <y>26</y>
-      <width>79</width>
+      <width>39</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Depth</string>
+     <string>TVD</string>
     </property>
    </widget>
    <widget class="QComboBox" name="cbVerticalDepthColumn">
@@ -192,6 +195,9 @@
       <width>135</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Vertical depth</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
@@ -224,8 +230,8 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
+     <x>6</x>
+     <y>38</y>
      <width>113</width>
      <height>17</height>
     </rect>
@@ -237,8 +243,8 @@
   <widget class="QLineEdit" name="eInclFilePath">
    <property name="geometry">
     <rect>
-     <x>128</x>
-     <y>6</y>
+     <x>124</x>
+     <y>34</y>
      <width>469</width>
      <height>25</height>
     </rect>
@@ -250,21 +256,21 @@
   <widget class="QPushButton" name="bOpenInclFile">
    <property name="geometry">
     <rect>
-     <x>602</x>
-     <y>6</y>
+     <x>598</x>
+     <y>34</y>
      <width>35</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>📂</string>
+    <string/>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>258</y>
+     <x>8</x>
+     <y>252</y>
      <width>627</width>
      <height>93</height>
     </rect>
@@ -298,9 +304,9 @@
    <widget class="QDoubleSpinBox" name="sbYValue">
     <property name="geometry">
      <rect>
-      <x>212</x>
+      <x>238</x>
       <y>60</y>
-      <width>149</width>
+      <width>123</width>
       <height>26</height>
      </rect>
     </property>
@@ -314,9 +320,9 @@
    <widget class="QDoubleSpinBox" name="sbXValue">
     <property name="geometry">
      <rect>
-      <x>34</x>
+      <x>50</x>
       <y>60</y>
-      <width>155</width>
+      <width>139</width>
       <height>26</height>
      </rect>
     </property>
@@ -330,14 +336,14 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>18</x>
+      <x>3</x>
       <y>64</y>
-      <width>16</width>
+      <width>45</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>x</string>
+     <string>x (WE)</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -345,12 +351,12 @@
      <rect>
       <x>198</x>
       <y>62</y>
-      <width>16</width>
+      <width>37</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>y</string>
+     <string>y(SN)</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_14">
@@ -412,8 +418,8 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>354</y>
+     <x>8</x>
+     <y>348</y>
      <width>629</width>
      <height>55</height>
     </rect>
@@ -457,15 +463,15 @@
      </rect>
     </property>
     <property name="text">
-     <string>📂</string>
+     <string/>
     </property>
    </widget>
   </widget>
   <widget class="QPushButton" name="bApply">
    <property name="geometry">
     <rect>
-     <x>274</x>
-     <y>412</y>
+     <x>270</x>
+     <y>406</y>
      <width>89</width>
      <height>25</height>
     </rect>
@@ -477,8 +483,8 @@
   <widget class="QLabel" name="label_15">
    <property name="geometry">
     <rect>
-     <x>294</x>
-     <y>70</y>
+     <x>330</x>
+     <y>10</y>
      <width>149</width>
      <height>17</height>
     </rect>
@@ -493,8 +499,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>442</x>
-     <y>66</y>
+     <x>478</x>
+     <y>6</y>
      <width>103</width>
      <height>26</height>
     </rect>
@@ -515,8 +521,8 @@
   <widget class="QLabel" name="label_17">
    <property name="geometry">
     <rect>
-     <x>54</x>
-     <y>38</y>
+     <x>50</x>
+     <y>66</y>
      <width>71</width>
      <height>17</height>
     </rect>
@@ -528,8 +534,8 @@
   <widget class="QLineEdit" name="ePointsFilePath">
    <property name="geometry">
     <rect>
-     <x>128</x>
-     <y>36</y>
+     <x>124</x>
+     <y>64</y>
      <width>469</width>
      <height>25</height>
     </rect>
@@ -539,24 +545,27 @@
    </property>
   </widget>
   <widget class="QPushButton" name="bOpenPointsFile">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>602</x>
-     <y>36</y>
+     <x>598</x>
+     <y>64</y>
      <width>35</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>📂</string>
+    <string/>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>190</y>
-     <width>629</width>
+     <x>8</x>
+     <y>184</y>
+     <width>625</width>
      <height>61</height>
     </rect>
    </property>
@@ -577,6 +586,9 @@
     </property>
    </widget>
    <widget class="QComboBox" name="cbPointColumn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>46</x>
@@ -600,6 +612,9 @@
     </property>
    </widget>
    <widget class="QComboBox" name="cbMDPointColumn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>226</x>
@@ -608,7 +623,26 @@
       <height>25</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Borehole depth</string>
+    </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="bHelp">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>4</y>
+     <width>43</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open help web page&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <customwidgets>
