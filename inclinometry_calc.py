@@ -27,7 +27,7 @@ from .Core.inclinometry import Well
 from . import qtawesome as qta
 
 
-HELP_PAGE = 'https://github.com/MikkoArtik'
+HELP_PAGE = 'https://mikkoartik.github.io/InclinometryPlugin/'
 
 
 def create_well_horizontal_trace(export_path, well_name, point_coords,
