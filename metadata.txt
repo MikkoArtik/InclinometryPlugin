@@ -1,24 +1,29 @@
 [general]
 name=Inclinometry calculator
+about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
+description=Plugin for inclinometry processing
+
+version=0.3
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
-description=Plugin for inclinometry processing
-about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
 category=Plugins
-version=0.3
-author=Michael Chernov
-email=mihail.tchernov@yandex.ru
 
 
-changelog=
-    0.3 : Add automatically adding horizontal trace to QGIS map, add link to
-    help web page (will be ready soon)
+changelog=0.3 2020-03-19
+      * Add icon
+      * Add automatically adding horizontal trace to QGIS map
+      * Add link to help web page (will be ready soon)
 
-tags=inclinometry, wellbore, well
-icon=icon.png
-homepage=https://github.com/MikkoArtik
+homepage=https://mikkoartik.github.io/InclinometryPlugin/
 tracker=https://github.com/MikkoArtik/InclinometryPlugin/issues
 repository=https://github.com/MikkoArtik/InclinometryPlugin
 
-experimental=True
+experimental=False
 deprecated=False
+
+tags=inclinometry, wellbore, well
+icon=icon.png
+
+author=Michael Chernov
+email=mihail.tchernov@yandex.ru
+

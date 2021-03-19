@@ -15,6 +15,7 @@ from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
     QgsFeature, QgsVectorLayer, QgsProject
 
 from .inclinometry_calc_dialog import InclinometryCalcDialog
+from .resources import *
 
 from .Core.dialogs import show_folder_dialog
 from .Core.dialogs import show_file_dialog
