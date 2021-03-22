@@ -4,8 +4,7 @@ import webbrowser as wb
 
 import numpy as np
 
-from PyQt5.QtCore import QVariant
-
+from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
@@ -14,8 +13,8 @@ from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
     QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, \
     QgsFeature, QgsVectorLayer, QgsProject
 
-from .inclinometry_calc_dialog import InclinometryCalcDialog
 from .resources import *
+from .inclinometry_calc_dialog import InclinometryCalcDialog
 
 from .Core.dialogs import show_folder_dialog
 from .Core.dialogs import show_file_dialog
@@ -76,8 +75,7 @@ class InclinometryCalc:
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
             self.plugin_dir,
-            'i18n',
-            'InclinometryCalc_{}.qm'.format(locale))
+            'i18n', 'InclinometryCalc_{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()

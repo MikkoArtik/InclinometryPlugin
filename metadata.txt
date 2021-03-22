@@ -3,13 +3,16 @@ name=Inclinometry calculator
 about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
 description=Plugin for inclinometry processing
 
-version=0.3
+version=1.0
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
 category=Plugins
 
-
-changelog=0.3 2020-03-19
+changelog=1.0 2020-03-22
+      * Fixed bug didn't show plugin icon on panel
+      * Upload help file (available on plugin home page)
+      * Add description of plugin dependencies
+      0.3 2020-03-19
       * Add icon
       * Add automatically adding horizontal trace to QGIS map
       * Add link to help web page (will be ready soon)
@@ -24,6 +27,7 @@ deprecated=False
 tags=inclinometry, wellbore, well
 icon=icon.png
 
+plugin_dependencies=qtpy,qtawesome
+
 author=Michael Chernov
 email=mihail.tchernov@yandex.ru
-
