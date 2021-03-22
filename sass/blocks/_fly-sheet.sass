@@ -1,39 +1,40 @@
 .fly-sheet
   padding-top: 30px
-  // background-image: url('../img/grey-bg.jpg')
-  // background-repeat: no-repeat
-  // background-size: cover
-  height: 100vh
+  // height: 100vh
   &__container
     position: relative
     width: 100%
-    height: 100%
+    // height: 100%
   &__content
-    margin-left: 300px
-    padding: 30px
+    margin-top: 30px
   &__title
     color: $primary
-    margin-bottom: 10px
-    font-size: 1.5em
+    font-size: 18px
     font-weight: 500
-  &__list
-    padding: 0
-    margin: 0
-    list-style: none
-    margin-top: 20px
-  &__item
-    display: flex
-    justify-content: space-between
-    align-items: center
     text-decoration: none
+  &__list
+    margin-top: 10px
+    list-style: circle
+  &__item
     color: $secondary
+    font-size: 14px
+    margin-bottom: 4px
+    &--active
+      font-weight: 800
   &__link, &__page
     text-decoration: none
     color: $secondary
+    font-size: 14px
     &:hover
       transition: 0.4s
-      background-color: #ece7e7
+      color: black
       border-radius: 3px
+  &__main-content
+    margin-left: 300px
+    padding: 20px
+    font-size: 20px
+    color: $primary
+    text-align: center
 .side
   &-menu
     padding: 35px
@@ -53,3 +54,10 @@
     margin: auto
     &__logo
       width: 200px
+    &__input
+      width: 100%
+      height: 25px
+      padding: 6px 12px
+      margin-top: 20px
+      margin-bottom: 20px
+      outline: none

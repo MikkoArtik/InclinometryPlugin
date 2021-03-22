@@ -405,58 +405,58 @@ hr {
 
 .fly-sheet {
   padding-top: 30px;
-  height: 100vh;
 }
 
 .fly-sheet__container {
   position: relative;
   width: 100%;
-  height: 100%;
 }
 
 .fly-sheet__content {
-  margin-left: 300px;
-  padding: 30px;
+  margin-top: 30px;
 }
 
 .fly-sheet__title {
   color: #183B56;
-  margin-bottom: 10px;
-  font-size: 1.5em;
+  font-size: 18px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .fly-sheet__list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  margin-top: 20px;
+  margin-top: 10px;
+  list-style: circle;
 }
 
 .fly-sheet__item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-decoration: none;
   color: #48555B;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.fly-sheet__item--active {
+  font-weight: 800;
 }
 
 .fly-sheet__link, .fly-sheet__page {
   text-decoration: none;
   color: #48555B;
+  font-size: 14px;
 }
 
 .fly-sheet__link:hover, .fly-sheet__page:hover {
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: #ece7e7;
+  color: black;
   border-radius: 3px;
+}
+
+.fly-sheet__main-content {
+  margin-left: 300px;
+  padding: 20px;
+  font-size: 20px;
+  color: #183B56;
+  text-align: center;
 }
 
 .side-menu {
@@ -479,5 +479,50 @@ hr {
 
 .side-menu__logo {
   width: 200px;
+}
+
+.side-menu__input {
+  width: 100%;
+  height: 25px;
+  padding: 6px 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.pages {
+  padding: 30px;
+  margin-left: 300px;
+}
+
+.pages__title {
+  color: #183B56;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.pages__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 10px;
+}
+
+.pages-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+.pages-item__number, .pages-item__text {
+  text-decoration: none;
+  color: #48555B;
+  font-size: 15px;
 }
 /*# sourceMappingURL=style.css.map */
