@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Запуск плагина для QGis «Inclinometry calculator»</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <section class="fly-sheet">
+        <div class="fly-sheet__container">
+            <aside class="side-menu">
+                <img src="img/logo-blue.svg" alt="" class="fly-sheet__logo" />
+                <p class="side-menu__text">Inclinometry Calculator v.2.00</p>
+                <form action="get" class="side-menu__form">
+                    <input class="side-menu__input" type="text" placeholder="Search" />
+                </form>
+                <hr />
+
+                <div class="fly-sheet__content">
+                    <a class="fly-sheet__title" href="fly-sheet.html">Оглавление</a>
+
+                    <ul class="fly-sheet__list">
+                        <li class="fly-sheet__item">
+                            <a href="pages.html" class="fly-sheet__link">Список рисунков</a>
+                        </li>
+                        <li class="fly-sheet__item">
+                            <a href="establishment.html" class="fly-sheet__link">Запуск плагина для QGis «Inclinometry calculator»</a
+                >
+              </li>
+              <li class="fly-sheet__item">
+                <a href="calculation-dxdy.html" class="fly-sheet__link"
+                  >Способ расчета по «DxDy»</a
+                >
+              </li>
+              <li class="fly-sheet__item">
+                <a href="#" class="fly-sheet__link">Способ расчета по «MD»</a>
+                        </li>
+                        <li class="fly-sheet__item">
+                            <a href="#" class="fly-sheet__link">Расчет координат портов</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="establishment">
+        <div class="establishment-container">
+            <h1 class="establishment__title">
+                Запуск плагина для QGis «Inclinometry calculator»
+            </h1>
+            <hr />
+            <p class="establishment__text">
+                Что бы запустить плагин пройдите по пути
+                <span class="establishment__bold">Модули –> Inclinometry calculator –> Inclinometry calculator
+          </span> (его требуется заранее установить). Появится окно как на Рисунке 1.
+            </p>
+
+            <div class="establishment__image-wrapper">
+                <img src="img/establishment__img.png" alt="Фото плагина" class="establishment__image" />
+            </div>
+
+            <span id="image_2" class="establishment__italic">Рисунок 1 – Вид окна плагина «Inclinometry calculator»</span
+        >
+
+        <p class="establishment__text">
+          Плагин позволяет посчитать траекторию ствола скважины из данных
+          инклинометрии методом среднего угла. <br />
+          Можно посчитать 2-мя разными способами: <br />
+          1) по «DxDy», т.е. по смещениям СЮ, ЗВ и вертикальной глубине от стола
+          ротора; <br />
+          2) по «MD», т.е. глубине по стволу, углу наклона и азимуту.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
