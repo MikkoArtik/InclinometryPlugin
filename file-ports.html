@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Подготовка файла портов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <section class="fly-sheet">
+        <aside class="side-menu">
+            <div class="fly-sheet__logo-wrapper">
+                <img src="img/logo-blue.svg" alt="" class="fly-sheet__logo" />
+            </div>
+
+            <p class="side-menu__text">Inclinometry Calculator v.2.00</p>
+            <form action="get" class="side-menu__form">
+                <input class="side-menu__input" type="text" placeholder="Search" />
+            </form>
+            <hr />
+
+            <div class="fly-sheet__content">
+                <a class="fly-sheet__title active" href="fly-sheet.html ">Главная</a>
+
+                <ul class="fly-sheet__list">
+                    <li class="fly-sheet__item">
+                        <a href="#" class="fly-sheet__link fly-sheet__link--click">Подготовка входных данных</a
+              >
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="file-incl.html"
+                    >Файл инклинометрии</a
+                  >
+                </li>
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="file-ports.html"
+                    >Файл портов</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="fly-sheet__item">
+              <a
+                href="establishment.html"
+                class="fly-sheet__link fly-sheet__link--click"
+                >Способы расчета</a
+              >
+
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="dxdy.html">DX DY</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="md.html">MD</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="ports.html">Расчет координат портов</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="fly-sheet__item">
+              <a href="#" class="fly-sheet__link fly-sheet__link--click"
+                >Результаты обработки</a
+              >
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="#"
+                    >Обработка инклинометрии</a
+                  >
+                </li>
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="#">Обработка портов</a>
+                    </li>
+                </ul>
+                <li class="fly-sheet__item">
+                    <a href="#" class="fly-sheet__link fly-sheet__link--click">Manual</a
+            >
+          </li>
+                </li>
+                </ul>
+        </div>
+      </aside>
+
+      <section class="file-ports">
+        <h1 class="file-ports__title">Подготовка файла портов</h1>
+        <hr />
+        <p class="file-ports__text">
+          Для точек, чьи координаты и глубины необходимо получить, нужно
+          подготовить входной файл следующего формата: <br />
+          - фал должен быть текстовый (формат *.dat); <br />
+          - в шапке две колонки (name — имя точки, MD — значение глубины по
+          стволу, имена колонок могут быть другими); <br />
+          - разделитель между колонками — табуляция; <br />
+          - разделитель дробной части — точка.
+        </p>
+
+        <div class="file-ports__image-wrapper">
+          <img src="img/file-ports_1.png" alt="Плагин" />
+        </div>
+      </section>
+    </section>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Способ расчета по DxDy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <section class="fly-sheet">
+        <aside class="side-menu">
+            <div class="fly-sheet__logo-wrapper">
+                <img src="img/logo-blue.svg" alt="" class="fly-sheet__logo" />
+            </div>
+
+            <p class="side-menu__text">Inclinometry Calculator v.2.00</p>
+            <form action="get" class="side-menu__form">
+                <input class="side-menu__input" type="text" placeholder="Search" />
+            </form>
+            <hr />
+
+            <div class="fly-sheet__content">
+                <a class="fly-sheet__title active" href="fly-sheet.html ">Главная</a>
+
+                <ul class="fly-sheet__list">
+                    <li class="fly-sheet__item">
+                        <a href="#" class="fly-sheet__link fly-sheet__link--click">Подготовка входных данных</a
+              >
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="file-incl.html"
+                    >Файл инклинометрии</a
+                  >
+                </li>
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="file-ports.html"
+                    >Файл портов</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="fly-sheet__item">
+              <a
+                href="establishment.html"
+                class="fly-sheet__link fly-sheet__link--click"
+                >Способы расчета</a
+              >
+
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="dxdy.html">DX DY</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="md.html">MD</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="ports.html">Расчет координат портов</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="fly-sheet__item">
+              <a
+                href="#"
+                class="fly-sheet__link fly-sheet__link--click"
+                >Результаты обработки</a
+              >
+              <ul class="fly-sheet__sub-menu">
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="#"
+                    >Обработка инклинометрии</a
+                  >
+                </li>
+                <li class="fly-sheet__sub-item">
+                  <a class="fly-sheet__link" href="#"
+                    >Обработка портов</a
+                  >
+                </li>
+              </ul>
+              <li class="fly-sheet__item">
+                        <a href="#" class="fly-sheet__link fly-sheet__link--click">Manual</a
+                >
+              </li>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="dxdy">
+        <h1 class="dxdy__title">Способ расчета по DxDy</h1>
+        <hr />
+        <p class="dxdy__text">
+          Первым шагом расчета инклинометрии будет выбор типа расчета. В данном
+          примере рассматриваем расчет по <span class="dxdy__bold">DxDy</span> ,
+          поэтому его и выбираем в поле Processing type (#1). Далее нужно
+          загрузить в плагин подготовленный файла инклинометрии (указать путь к
+          файлу в поле Inclinometry file - #2). Помимо файла инклинометрии
+          необходимы следующие входные данные:
+          <br />
+          - координаты устья ; <br />
+          - высота стола ротора; <br />
+          - система координат, в которой даны координаты устья.
+        </p>
+
+        <p class="dxdy__text">
+          Теперь указать колонки из файла, соответствующие смещениям по x(WE) и
+          y(SN), а также колонку с TVD (#3). В поле Name (#4) вписываем имя
+          скважины (эта надпись будет в названии файла, который мы получим по
+          завершению). В поле Coordinate system (#5) выбираем систему координат,
+          в которой заданы координаты устья.
+        </p>
+
+        <div class="dxdy__image-wrapper dxdy__image-wrapper--big">
+          <img src="img/dxdy_1.png" alt="Плагин" />
+        </div>
+
+        <p class="dxdy__text">
+          В поля x(WE), y(SN), Altitude (#6) указываются координаты устья и
+          альтитуда стола ротора. В последнем поле Output folder (#7) выбирается
+          папка для экспорта результатов. После заполнения всех нужных полей
+          нажимаем кнопку « Apply ». При правильном вводе данных в папке из поля
+          Output folder (#7) после расчета будут 7 файлов с результатами (6 –
+          векторные файлы, 1 – текстовый). Полученный shp-файл автоматически
+          подгружается в Qgis. Описание выходного формата см. в разделе (ссылка
+          на раздел — Результат обрабаботки)
+        </p>
+
+        <div class="dxdy__image-wrapper dxdy__image-wrapper--big">
+          <img src="img/dxdy_2.png" alt="Плагин" />
+        </div>
+      </section>
+    </section>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
