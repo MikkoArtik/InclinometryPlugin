@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Способ расчета по «MD»</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <section class="fly-sheet">
+        <div class="fly-sheet__container">
+            <aside class="side-menu">
+                <img src="img/logo-blue.svg" alt="" class="fly-sheet__logo" />
+                <p class="side-menu__text">Inclinometry Calculator v.2.00</p>
+                <form action="get" class="side-menu__form">
+                    <input class="side-menu__input" type="text" placeholder="Search" />
+                </form>
+                <hr />
+
+                <div class="fly-sheet__content">
+                    <a class="fly-sheet__title" href="fly-sheet.html">Оглавление</a>
+
+                    <ul class="fly-sheet__list">
+                        <li class="fly-sheet__item">
+                            <a href="pages.html" class="fly-sheet__link">Список рисунков</a>
+                            <!-- <a href="#" class="fly-sheet__page">2</a> -->
+                        </li>
+                        <li class="fly-sheet__item">
+                            <a href="establishment.html" class="fly-sheet__link">Запуск плагина для QGis «Inclinometry calculator»</a
+                >
+              </li>
+              <li class="fly-sheet__item">
+                <a href="calculation-dxdy.html" class="fly-sheet__link"
+                  >Способ расчета по «DxDy»</a
+                >
+              </li>
+              <li class="fly-sheet__item">
+                <a href="calculation-md.html" class="fly-sheet__link"
+                  >Способ расчета по «MD»</a
+                >
+              </li>
+              <li class="fly-sheet__item">
+                <a href="calculation-ports.html" class="fly-sheet__link"
+                  >Расчет координат портов</a
+                >
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="calculation-md">
+      <div class="calculaion-md__container">
+        <h1 class="calculation-md__title">Способ расчета по «MD»</h1>
+        <hr />
+        <p class="calculation-md__text">
+          Рассмотрим способ № 2 (расчет инклинометрии по «MD», т.е. по глубине
+          по стволу, зенитному углу и азимуту). Для начала нужно сделать файл с
+          данными инклинометрии в особом формате (рисунок 6) аналогично со
+          способом № 1. Там должны быть данные о
+          <span class="calculation-md__bold">Глубине по стволу (MD)</span> ,
+          <span class="calculation-md__bold">зенитному углу (Incl)</span> и
+          <span class="calculation-md__bold">Азимуту (Azim)</span> . Азимут
+          может быть истинный (географический) (
+          <span class="calculation-md__bold">Azim True</span>) и магнитный (
+          <span class="calculation-md__bold">Azim Mag</span>). Если в файле
+          задан магнитный азимут, то нужно знать магнитное склонение (
+          <span class="calculation-md__bold">Magnetic Declination</span>) для
+          координат данной скважины.
+        </p>
+
+        <div class="calculation-md__image-wrapper">
+          <img
+            src="img/calculation-md_1.png"
+            alt="Фото плагина"
+            class="calculation-md__image"
+          />
+        </div>
+
+        <span id="image_6" class="calculation-md__italic"
+          >Рисунок 6 – Пример файла инклинометрии при расчете по MD</span
+        >
+
+        <div
+          class="calculation-md__image-wrapper calculation-md__image-wrapper--big"
+        >
+          <img
+            src="img/calculation-md_2.png"
+            alt="Фото плагина"
+            class="calculation-md__image"
+          />
+        </div>
+
+        <span id="image_7" class="calculation-md__italic"
+          >Рисунок 7 – Порядок ввода данных при расчете по MD</span
+        >
+
+        <p class="calculation-md__text">
+          В окне <span class="calculation-dxdy__bold">№1</span> (рисунок 7)
+          выбираем метод расчета «
+          <span class="calculation-dxdy__bold">by MD</span>». В окне
+          <span class="calculation-dxdy__bold">№2</span> выбираем ранее
+          подготовленный файл (348_incl_test_2.dat). В окне
+          <span class="calculation-dxdy__bold">№3</span> выбираем соответственно
+          <span class="calculation-dxdy__bold">MD</span> – Глубина по стволу,
+          <span class="calculation-dxdy__bold">Inclinatio</span> – угол наклона,
+          <span class="calculation-dxdy__bold">Azimuth</span> – азимут. Если
+          азимут задается истинный, то в окне
+          <span class="calculation-dxdy__bold">№4</span> вводим «
+          <span class="calculation-dxdy__bold">0</span> », если магнитный, то –
+          магнитное склонение, которое можно найти в файле инклинометрии от
+          заказчика. В окне
+          <span class="calculation-dxdy__bold">№5</span> вводим название
+          скважины (можно добавить приписку _MD). В окне
+          <span class="calculation-dxdy__bold">№6</span> выбираем систему
+          координат, в которой мы хотим получить выходной файл, и в котором у
+          нас имеются координаты устья. В окне
+          <span class="calculation-dxdy__bold">№7</span> вводим координаты устья
+          в системе координат, которые выбрали в окне
+          <span class="calculation-dxdy__bold">№6</span>.
+          <span class="calculation-dxdy__bold">x (WE)</span> – долгота или
+          направление на Восток,
+          <span class="calculation-dxdy__bold">y (SN)</span> – широта или
+          направление на Север,
+          <span class="calculation-dxdy__bold">Altitude</span> – альтитуда стола
+          ротора (или высота, которая соответствует значению альтитуды при
+          глубине по стволу (<span class="calculation-dxdy__bold">MD</span>)
+          равным 0). <br />
+          В окне <span class="calculation-dxdy__bold">№8</span> выбираем путь
+          для сохранения выходного файла (выбираем папку, а не файл). После
+          заполнения всех нужных полей нажимаем кнопку «
+          <span class="calculation-dxdy__bold">Apply</span> ».
+        </p>
+
+        <div
+          class="calculation-md__image-wrapper calculation-md__image-wrapper--big"
+        >
+          <img
+            src="img/calculation-md_3.png"
+            alt="Фото плагина"
+            class="calculation-md__image"
+          />
+        </div>
+
+        <span id="image_8" class="calculation-md__italic"
+          >Рисунок 8 – Пример заполненных данных при расчете инклинометрии по
+          MD</span
+        >
+
+        <p class="calculation-md__text">
+          При правильном вводе данных окон в папке (который указали в окне
+          <span class="calculation-dxdy__bold">№8</span>) появляются 7 файлов (6
+          – векторные файлы для QGis, 1 – текстовый) с результатами (рисунок 9).
+          Полученный shp-файл автоматически подгружается в QGis. В текстовом
+          файле появляются колонки с Вертикальной глубиной и Абсолютной
+          отметкой.
+        </p>
+
+        <div
+          class="calculation-md__image-wrapper calculation-md__image-wrapper--big"
+        >
+          <img
+            src="img/calculation-md_4.png"
+            alt="Фото плагина"
+            class="calculation-md__image"
+          />
+        </div>
+
+        <span id="image_9" class="calculation-md__italic"
+          >Рисунок 9 – Пример полученных файлов при расчете инклинометрии по
+          MD</span
+        >
+
+        <p class="calculation-md__text">
+          Результаты при расчете инклинометрии по «MD» и по «dxdy» будут
+          отличаться незначительно. При более сильных различиях рекомендуется
+          брать «за правду» вычисления по dxdy.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
