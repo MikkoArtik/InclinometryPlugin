@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inclinometry Calculator</title>
+    <title>Результаты обработки портов</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -87,34 +87,34 @@
                 </ul>
               </li>
               <li class="fly-sheet__item">
-                <a
-                  href="static/Help.pdf"
-                  class="fly-sheet__link fly-sheet__link--click"
+                <a href="#" class="fly-sheet__link fly-sheet__link--click"
                   >Manual</a
                 >
-                
-        </div>
               </li>
             </ul>
           </div>
         </aside>
 
-        <div class="fly-sheet__main-content">
-          <h1 class="fly-sheet__title--second">Основная информация</h1>
+        <div class="res-ports">
+          <h1 class="res-ports__title">Результаты обработки портов</h1>
           <hr />
-          <p class="fly-sheet__text">
-            Плагин позволяет обработать данные инклинометрии двумя различными
-            способами и получить горизонтальную проекцию ствола скважины в
-            формате SHP. Способы расчета: - DxDy (расчет инклинометрии по
-            приращения координат относительно устья); - MD (расчет инклинометрии
-            методом среднего угла). Помимо расчетов инклинометрии плагин
-            позволяет рассчитать координаты точек и их абсолютные и вертикальные
-            глубины по известной глубине по стволу. Это особенно актуально,
-            например, чтобы нанести на карту порты ГРП. Данный расчет доступен
-            при расчете инклинометрии по методу MD. Результаты при расчете
-            инклинометрии и по «MD», и по «dxdy» будут отличаться незначительно.
-            При более сильных различиях рекомендуется брать «за правду»
-            вычисления по dxdy.
+          <p class="res-ports__text">
+            При совместном расчете с инклинометрией положения точек на стволе
+            скважины по значению MD также выгружается дополнительный файл
+            следующего формата:
+          </p>
+          <div class="res-ports__image-wrapper">
+            <img src="img/res-ports_1.png" alt="Плагин" />
+          </div>
+
+          <p class="res-ports__text">
+            В файле 6 колонок: <br />
+            Point — имя точки; <br />
+            MD — глубина точки по стволу; <br />
+            x - координата x в проекции Гаусса-Крюгера; <br />
+            y - координата y в проекции Гаусса-Крюгера; <br />
+            Depth — вертикальная глубина; <br />
+            Altitude — Абсолютная глубина.
           </p>
         </div>
       </div>

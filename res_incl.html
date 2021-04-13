@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inclinometry Calculator</title>
+    <title>Результаты обработки инклинометрии</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -87,34 +87,48 @@
                 </ul>
               </li>
               <li class="fly-sheet__item">
-                <a
-                  href="static/Help.pdf"
-                  class="fly-sheet__link fly-sheet__link--click"
+                <a href="#" class="fly-sheet__link fly-sheet__link--click"
                   >Manual</a
                 >
-                
-        </div>
               </li>
             </ul>
           </div>
         </aside>
 
-        <div class="fly-sheet__main-content">
-          <h1 class="fly-sheet__title--second">Основная информация</h1>
+        <div class="res-incl">
+          <h1 class="res-incl__title">Результаты обработки инклинометрии</h1>
           <hr />
-          <p class="fly-sheet__text">
-            Плагин позволяет обработать данные инклинометрии двумя различными
-            способами и получить горизонтальную проекцию ствола скважины в
-            формате SHP. Способы расчета: - DxDy (расчет инклинометрии по
-            приращения координат относительно устья); - MD (расчет инклинометрии
-            методом среднего угла). Помимо расчетов инклинометрии плагин
-            позволяет рассчитать координаты точек и их абсолютные и вертикальные
-            глубины по известной глубине по стволу. Это особенно актуально,
-            например, чтобы нанести на карту порты ГРП. Данный расчет доступен
-            при расчете инклинометрии по методу MD. Результаты при расчете
-            инклинометрии и по «MD», и по «dxdy» будут отличаться незначительно.
-            При более сильных различиях рекомендуется брать «за правду»
-            вычисления по dxdy.
+          <p class="res-incl__text">
+            В результате обработки инклинометрии будут получены 7 физических
+            файлов с расширениями *.cpg, *.dbf, *.prj, *.qpj, *.shp, *.shx и
+            *.dat. Первые шесть — это векторный файл горизонтальной проекции
+            ствола скважины, а последний — это файл с результатами расчетов,
+            который выглядит так: <br />
+            В случае расчета по MD:
+          </p>
+          <div class="res-incl__image-wrapper">
+            <img src="img/res-incl_1.png" alt="Плагин" />
+          </div>
+          <p class="res-incl__text">В случае расчета по DxDy:</p>
+          <div class="res-incl__image-wrapper">
+            <img src="img/res-incl_2.png" alt="Плагин" />
+          </div>
+          <p class="res-incl__text">
+            В шапке первая строка — это поправка за сближение меридианов, вторая
+            — угол магнитного склонения (в градусах). <br />
+            Далее основные данные в колонках: <br />
+            MD — глубина по стволу; <br />
+            Incl — зенитный угол (равен нулю при расчетах по способу DxDy);
+            <br />
+            Geo_Az — истинный азимут (равен нулю при расчетах по способу DxDy);
+            <br />
+            x_GKX — координата x в проекции Гаусса-Крюгера, где X — номер зоны;
+            <br />
+            y_GKX - координата y в проекции Гаусса-Крюгера, где X — номер зоны;
+            <br />
+            Vert_Depth — вертикальная глубина; <br />
+            Altitude — абсолютная глубина. <br />
+            Данный файл можно использовать для проверки корректности расчетов.
           </p>
         </div>
       </div>
