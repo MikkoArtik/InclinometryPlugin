@@ -1,33 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8" />
-    <title>Help</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inclinometry Calculator</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <section class="main">
-        <div class="main-container">
-            <h1 class="main__title">OUR NEW SITE IS COMING SOON!</h1>
-            <br />
-            <p class="main__description">Stay tuned for something amazing!</p>
-            <span class="main__text">
-          Now you can download it in pdf version (now only russian language)
-        </span>
-            <br />
-            <form class="main__form" method="GET" action="static/Help.pdf">
-                <button type="submit" class="btn btn-outline-info main__button">
-            Download
-          </button>
-            </form>
+    <section class="fly-sheet">
+        <div class="fly-sheet__container">
+            <aside class="side-menu">
+                <div class="fly-sheet__logo-wrapper">
+                    <img src="img/logo.png" alt="" class="fly-sheet__logo" />
+                </div>
+
+                <p class="side-menu__text">Inclinometry Calculator v.2.00</p>
+                <form action="get" class="side-menu__form">
+                    <input class="side-menu__input" type="text" placeholder="Search" />
+                </form>
+                <hr />
+
+                <div class="fly-sheet__content">
+                    <a class="fly-sheet__title active" href="fly-sheet.html ">Главная</a
+            >
+
+            <ul class="fly-sheet__list">
+              <li class="fly-sheet__item">
+                <a
+                  href="pages.html"
+                  class="fly-sheet__link fly-sheet__link--click"
+                  >Подготовка входных данных</a
+                >
+                <ul class="fly-sheet__sub-menu">
+                  <li class="fly-sheet__sub-item">
+                    <a class="fly-sheet__link" href="file-incl.html"
+                      >Файл инклинометрии</a
+                    >
+                  </li>
+                  <li class="fly-sheet__sub-item">
+                    <a class="fly-sheet__link" href="file-ports.html"
+                      >Файл портов</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="fly-sheet__item">
+                <a
+                  href="establishment.html"
+                  class="fly-sheet__link fly-sheet__link--click"
+                  >Способы расчета</a
+                >
+
+                <ul class="fly-sheet__sub-menu">
+                  <li class="fly-sheet__sub-item">
+                    <a class="fly-sheet__link" href="dxdy.html">DX DY</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="md.html">MD</a>
+                    </li>
+                    <li class="fly-sheet__sub-item">
+                        <a class="fly-sheet__link" href="ports.html">Расчет координат портов</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li class="fly-sheet__item">
+                <a href="#" class="fly-sheet__link fly-sheet__link--click"
+                  >Результаты обработки</a
+                >
+                <ul class="fly-sheet__sub-menu">
+                  <li class="fly-sheet__sub-item">
+                    <a class="fly-sheet__link" href="res_incl.html"
+                      >Обработка инклинометрии</a
+                    >
+                  </li>
+                  <li class="fly-sheet__sub-item">
+                    <a class="fly-sheet__link" href="res_ports.html"
+                      >Обработка портов</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="fly-sheet__item">
+                <a
+                  href="static/Help.pdf"
+                  class="fly-sheet__link fly-sheet__link"
+                  >Manual</a
+                >
+                
         </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="fly-sheet__main-content">
+          <h1 class="fly-sheet__title--second">Основная информация</h1>
+          <hr />
+          <p class="fly-sheet__text">
+            Плагин позволяет обработать данные инклинометрии двумя различными
+            способами и получить горизонтальную проекцию ствола скважины в
+            формате SHP. Способы расчета: - DxDy (расчет инклинометрии по
+            приращения координат относительно устья); - MD (расчет инклинометрии
+            методом среднего угла). Помимо расчетов инклинометрии плагин
+            позволяет рассчитать координаты точек и их абсолютные и вертикальные
+            глубины по известной глубине по стволу. Это особенно актуально,
+            например, чтобы нанести на карту порты ГРП. Данный расчет доступен
+            при расчете инклинометрии по методу MD. Результаты при расчете
+            инклинометрии и по «MD», и по «dxdy» будут отличаться незначительно.
+            При более сильных различиях рекомендуется брать «за правду»
+            вычисления по dxdy.
+          </p>
+        </div>
+      </div>
     </section>
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>
