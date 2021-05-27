@@ -215,6 +215,7 @@ class InclinometryCalc:
     def set_start_form_state(self):
         ui = self.dlg
         ui.eInclFilePath.clear()
+        ui.ePointsFilePath.clear()
         ui.eWellName.clear()
         ui.sbXValue.setValue(0)
         ui.sbYValue.setValue(0)
@@ -258,9 +259,6 @@ class InclinometryCalc:
             self.processing_type = XY_DATA_TYPE
             self.magnetic_declination = 0
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
-            self.dlg.bOpenPointsFile.setEnabled(False)
-            self.dlg.cbPointColumn.setEnabled(False)
-            self.dlg.cbMDPointColumn.setEnabled(False)
         else:
             self.dlg.cbDxColumn.setEnabled(False)
             self.dlg.cbDyColumn.setEnabled(False)
@@ -270,9 +268,6 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(True)
             self.processing_type = MD_DATA_TYPE
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
-            self.dlg.bOpenPointsFile.setEnabled(True)
-            self.dlg.cbPointColumn.setEnabled(True)
-            self.dlg.cbMDPointColumn.setEnabled(True)
 
     def get_form_data(self):
         x, y = self.dlg.sbXValue.value(), self.dlg.sbYValue.value()

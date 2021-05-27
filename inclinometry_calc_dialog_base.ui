@@ -546,7 +546,7 @@
   </widget>
   <widget class="QPushButton" name="bOpenPointsFile">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -587,7 +587,7 @@
    </widget>
    <widget class="QComboBox" name="cbPointColumn">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -613,7 +613,7 @@
    </widget>
    <widget class="QComboBox" name="cbMDPointColumn">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
