@@ -16,13 +16,13 @@ from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
 from .resources import *
 from .inclinometry_calc_dialog import InclinometryCalcDialog
 
-from .Core.dialogs import show_folder_dialog
-from .Core.dialogs import show_file_dialog
+from .core.dialogs import show_folder_dialog
+from .core.dialogs import show_file_dialog
 
-from .Core.file_import import load_incl_file
-from .Core.file_import import load_points_file
-from .Core.inclinometry import MD_DATA_TYPE, XY_DATA_TYPE
-from .Core.inclinometry import Well
+from .core.file_import import load_incl_file
+from .core.file_import import load_points_file
+from .core.inclinometry import MD_DATA_TYPE, XY_DATA_TYPE
+from .core.inclinometry import Well
 
 from . import qtawesome as qta
 
