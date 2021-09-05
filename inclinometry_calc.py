@@ -4,14 +4,11 @@ import webbrowser as wb
 
 import numpy as np
 
-from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
-from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
-    QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, \
-    QgsFeature, QgsVectorLayer, QgsProject
+from qgis.core import QgsVectorLayer, QgsProject
 
 from .resources import *
 from .inclinometry_calc_dialog import InclinometryCalcDialog
@@ -21,8 +18,10 @@ from .core.dialogs import show_file_dialog
 
 from .core.file_import import load_incl_file
 from .core.file_import import load_points_file
-from .core.inclinometry import MD_DATA_TYPE, XY_DATA_TYPE
+from .core.inclinometry import MD_TYPE, XY_TYPE
 from .core.inclinometry import Well
+from .core.exporting import create_inclinometry_txt_file
+from .core.exporting import create_well_horizontal_trace_shp_file
 
 from . import qtawesome as qta
 
@@ -30,24 +29,7 @@ from . import qtawesome as qta
 HELP_PAGE = 'https://mikkoartik.github.io/InclinometryPlugin/'
 
 
-def create_well_horizontal_trace(export_path, well_name, point_coords,
-                                 crs_id):
-    points = [QgsPoint(x, y) for x, y in point_coords]
-    line = QgsGeometry.fromPolyline(points)
-
-    fields = QgsFields()
-    fields.append(QgsField('WellName', QVariant.String))
-
-    writer = QgsVectorFileWriter(export_path, 'UTF-8', fields,
-                                 QgsWkbTypes.LineString,
-                                 QgsCoordinateReferenceSystem(crs_id),
-                                 'ESRI Shapefile')
-    feat = QgsFeature()
-    feat.setGeometry(line)
-    feat.setAttributes([well_name])
-    writer.addFeature(feat)
-
-
+# TODO: убрать этот метод в модуль exporting.py
 def get_interpolate_points_data(points_data: list, well_data: Well) -> list:
     result = []
     for name, md in points_data:
@@ -93,7 +75,7 @@ class InclinometryCalc:
 
         self.crs_id = 0
         self.export_folder = '/'
-        self.processing_type = XY_DATA_TYPE
+        self.processing_type = XY_TYPE
         self.magnetic_declination = 0.0
         self.incl_file_data = np.array([])
         self.incl_file_columns: List[str] = []
@@ -108,7 +90,7 @@ class InclinometryCalc:
         self.dlg.bOpenInclFile.clicked.connect(self.open_incl_file)
         self.dlg.bOpenPointsFile.clicked.connect(self.open_points_file)
         self.dlg.cbProcessingType.currentTextChanged.connect(
-            self.columns_enabling_control)
+            self.set_columns_enabling)
         self.dlg.eOpenFolder.clicked.connect(self.open_export_folder)
         self.dlg.bApply.clicked.connect(self.proc)
 
@@ -247,7 +229,7 @@ class InclinometryCalc:
         self.dlg.cbPointColumn.addItems(items)
         self.dlg.cbMDPointColumn.addItems(items)
 
-    def columns_enabling_control(self):
+    def set_columns_enabling(self):
         index = self.dlg.cbProcessingType.currentIndex()
         if index == 0:
             self.dlg.cbDxColumn.setEnabled(True)
@@ -256,7 +238,7 @@ class InclinometryCalc:
             self.dlg.cbMDColumn.setEnabled(False)
             self.dlg.cbAzimuthColumn.setEnabled(False)
             self.dlg.cbInclinationColumn.setEnabled(False)
-            self.processing_type = XY_DATA_TYPE
+            self.processing_type = XY_TYPE
             self.magnetic_declination = 0
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
         else:
@@ -266,7 +248,7 @@ class InclinometryCalc:
             self.dlg.cbMDColumn.setEnabled(True)
             self.dlg.cbAzimuthColumn.setEnabled(True)
             self.dlg.cbInclinationColumn.setEnabled(True)
-            self.processing_type = MD_DATA_TYPE
+            self.processing_type = MD_TYPE
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
 
     def get_form_data(self):
@@ -319,7 +301,7 @@ class InclinometryCalc:
 
     def get_used_incl_column_indexes(self):
         column_indexes = []
-        if self.processing_type == XY_DATA_TYPE:
+        if self.processing_type == XY_TYPE:
             column_indexes.append(self.dlg.cbDxColumn.currentIndex())
             column_indexes.append(self.dlg.cbDyColumn.currentIndex())
             column_indexes.append(
@@ -330,18 +312,7 @@ class InclinometryCalc:
             column_indexes.append(self.dlg.cbAzimuthColumn.currentIndex())
         return column_indexes
 
-    def export_inclination_file(self, well: Well, export_path: str):
-        meridian_correction = well.meridian_correction
-        header = well.export_file_header
-        export_data = well.get_export_array()
-        header = '\t'.join(header)
-
-        with open(export_path, 'w') as f:
-            f.write(f'Meridian correction = {meridian_correction}\n')
-            f.write(f'Magnetic declination = {self.magnetic_declination}\n')
-            np.savetxt(f, export_data, '%f', '\t', header=header,
-                       comments='')
-
+    # TODO: Убрать этот метод в модуль exporting.py
     def export_interpolation_data(self, well: Well, export_path: str):
         if len(self.points_file_data) == 0:
             return
@@ -380,19 +351,19 @@ class InclinometryCalc:
                     data)
         well.processing()
 
-        file_name = f'{self.well_name}_inclination.dat'
+        file_name = f'{self.well_name}_inclinometry.txt'
         export_path = os.path.join(self.export_folder, file_name)
-        self.export_inclination_file(well, export_path)
+        create_inclinometry_txt_file(well=well, output_file=export_path)
 
         file_name = f'{self.well_name}_hor_trace.shp'
         shp_path = os.path.join(self.export_folder, file_name)
-        export_data = well.get_export_array()
-        create_well_horizontal_trace(shp_path, self.well_name,
-                                     export_data[:, [3, 4]],
-                                     crs_id=well.gk_crs_id)
+        create_well_horizontal_trace_shp_file(well=well,
+                                              well_name=self.well_name,
+                                              export_path=shp_path)
 
         file_name = f'{self.well_name}_MD_Points.dat'
         export_path = os.path.join(self.export_folder, file_name)
+        # TODO: заменить метод
         self.export_interpolation_data(well, export_path)
 
         self.load_vector_layer(shp_path)
