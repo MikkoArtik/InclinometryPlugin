@@ -16,26 +16,19 @@ from .inclinometry_calc_dialog import InclinometryCalcDialog
 from .core.dialogs import show_folder_dialog
 from .core.dialogs import show_file_dialog
 
-from .core.file_import import load_incl_file
-from .core.file_import import load_points_file
+from .core.importing import load_incl_file
+from .core.importing import load_points_file
 from .core.inclinometry import MD_TYPE, XY_TYPE
 from .core.inclinometry import Well
+
 from .core.exporting import create_inclinometry_txt_file
 from .core.exporting import create_well_horizontal_trace_shp_file
+from .core.exporting import create_points_interpolation_file
 
 from . import qtawesome as qta
 
 
 HELP_PAGE = 'https://mikkoartik.github.io/InclinometryPlugin/'
-
-
-# TODO: убрать этот метод в модуль exporting.py
-def get_interpolate_points_data(points_data: list, well_data: Well) -> list:
-    result = []
-    for name, md in points_data:
-        t = [name] + well_data.interpolate_data(md).tolist()
-        result.append(t)
-    return result
 
 
 class InclinometryCalc:
@@ -312,27 +305,19 @@ class InclinometryCalc:
             column_indexes.append(self.dlg.cbAzimuthColumn.currentIndex())
         return column_indexes
 
-    # TODO: Убрать этот метод в модуль exporting.py
     def export_interpolation_data(self, well: Well, export_path: str):
         if len(self.points_file_data) == 0:
             return
 
         points_data = []
+        name_col_index, md_col_index = self.get_used_points_column_indexes()
         for item in self.points_file_data:
-            t = []
-            for i in self.get_used_points_column_indexes():
-                value = item[i]
-                if i == 1:
-                    value = float(value)
-                t.append(value)
-            points_data.append(t)
+            point_name = item[name_col_index]
+            md_value = float(item[md_col_index])
+            points_data.append([point_name, md_value])
 
-        result = get_interpolate_points_data(points_data, well)
-        header = ['Point', 'MD', 'x', 'y', 'Depth', 'Altitude']
-        with open(export_path, 'w') as f:
-            f.write('\t'.join(header)+'\n')
-            for t in result:
-                f.write('\t'.join(list(map(str, t))) + '\n')
+        create_points_interpolation_file(well=well, points_data=points_data,
+                                         export_path=export_path)
 
     def load_vector_layer(self, file_path):
         layer = QgsVectorLayer(file_path, self.well_name, 'ogr')
@@ -349,7 +334,6 @@ class InclinometryCalc:
                     self.well_head_coords[2], self.crs_id,
                     self.magnetic_declination, self.processing_type,
                     data)
-        well.processing()
 
         file_name = f'{self.well_name}_inclinometry.txt'
         export_path = os.path.join(self.export_folder, file_name)
@@ -363,7 +347,7 @@ class InclinometryCalc:
 
         file_name = f'{self.well_name}_MD_Points.dat'
         export_path = os.path.join(self.export_folder, file_name)
-        # TODO: заменить метод
+
         self.export_interpolation_data(well, export_path)
 
         self.load_vector_layer(shp_path)

@@ -61,6 +61,8 @@ class Well:
         self.__gk_zone_index = self.get_gk_zone_index()
         self.__gk_crs_id = self.get_gk_crs_id()
 
+        self.processing()
+
     @staticmethod
     def get_src(crs_id: int) -> QgsCoordinateReferenceSystem:
         return QgsCoordinateReferenceSystem(crs_id)

@@ -1,3 +1,4 @@
+from typing import List
 import numpy as np
 
 from qgis.PyQt.QtCore import QVariant
@@ -56,3 +57,24 @@ def create_well_horizontal_trace_shp_file(well: Well, well_name: str,
     feat.setGeometry(line)
     feat.setAttributes([well_name])
     writer.addFeature(feat)
+
+
+def create_points_interpolation_file(well: Well,
+                                     points_data: List[List[str, float]],
+                                     export_path: str):
+    header_columns = ['Point', 'MD', 'x', 'y', 'Depth', 'Altitude']
+    column_indexes = [ColumnIndexes.md, ColumnIndexes.x_global,
+                      ColumnIndexes.y_global, ColumnIndexes.depth,
+                      ColumnIndexes.altitude]
+
+    result_data = []
+    for point_name, md_value in points_data:
+        interpolation_data = well.interpolate_data(md_value=md_value)
+        if interpolation_data:
+            tmp_arr = [point_name] + interpolation_data[column_indexes].tolist()
+            result_data.append(list(map(str, tmp_arr)))
+
+    with open(export_path, 'w') as f:
+        f.write('\t'.join(header_columns) + '\n')
+        for record in result_data:
+            f.write('\t'.join(record) + '\n')
