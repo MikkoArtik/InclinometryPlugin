@@ -8,8 +8,7 @@ from qgis.core import QgsCoordinateTransform
 from qgis.core import QgsCoordinateTransformContext
 
 
-WGS84_ID = 4326
-PULKOVO1942_ID = 4284
+WGS84_ID, PULKOVO1942_ID = 4326, 4284
 MD_TYPE, XY_TYPE = 'MD', 'XYZ'
 
 
@@ -24,8 +23,8 @@ class ColumnIndexes(NamedTuple):
     x_global = 7
     y_global = 8
 
-    @property
-    def size(self) -> int:
+    @staticmethod
+    def get_columns_count() -> int:
         return 9
 
 
@@ -50,7 +49,7 @@ class Well:
             self.__magnetic_declination = 0
 
         self.__incl_data = np.zeros(shape=(inclination_data.shape[0],
-                                           ColumnIndexes.size))
+                                           ColumnIndexes.get_columns_count()))
         if processing_type == MD_TYPE:
             self.__incl_data[:, ColumnIndexes.md] = inclination_data[:, 0]
             self.__incl_data[:, ColumnIndexes.incl] = inclination_data[:, 1]
@@ -218,10 +217,6 @@ class Well:
         if not min_md <= md_value <= max_md:
             return np.array([])
 
-        column_indexes = [ColumnIndexes.md, ColumnIndexes.x_global,
-                          ColumnIndexes.y_global, ColumnIndexes.depth,
-                          ColumnIndexes.altitude]
-
         top_index, bottom_index = 0, 0
         for i in range(self.inclinometry_array.shape[0]):
             if self.inclinometry_array[i, ColumnIndexes.md] < md_value:
@@ -234,7 +229,7 @@ class Well:
                 break
 
         if top_index == bottom_index:
-            return self.inclinometry_array[top_index, column_indexes]
+            return self.inclinometry_array[top_index]
 
         min_md = self.inclinometry_array[top_index, ColumnIndexes.md]
         max_md = self.inclinometry_array[bottom_index, ColumnIndexes.md]

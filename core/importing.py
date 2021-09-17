@@ -1,7 +1,8 @@
+from typing import List, Tuple
 import numpy as np
 
 
-def load_points_file(file_path):
+def load_points_file(file_path) -> Tuple[List[str], List[List[str]]]:
     data = []
     with open(file_path) as f:
         headers = f.readline().rstrip().split('\t')
@@ -10,7 +11,7 @@ def load_points_file(file_path):
     return headers, data
 
 
-def load_incl_file(file_path):
+def load_incl_file(file_path) -> Tuple[List[str], np.ndarray]:
     with open(file_path, 'r') as f:
         file_columns = f.readline().rstrip().split('\t')
 

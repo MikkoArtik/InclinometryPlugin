@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 import numpy as np
 
 from qgis.PyQt.QtCore import QVariant
@@ -6,8 +6,8 @@ from qgis.core import QgsPoint, QgsGeometry, QgsField, QgsFields, \
     QgsWkbTypes, QgsVectorFileWriter, QgsCoordinateReferenceSystem, \
     QgsFeature
 
-from core.inclinometry import Well, ColumnIndexes
-from core.inclinometry import MD_TYPE
+from .inclinometry import Well, ColumnIndexes
+from .inclinometry import MD_TYPE
 
 
 def create_inclinometry_txt_file(well: Well, output_file: str):
@@ -60,7 +60,7 @@ def create_well_horizontal_trace_shp_file(well: Well, well_name: str,
 
 
 def create_points_interpolation_file(well: Well,
-                                     points_data: List[List[str, float]],
+                                     points_data: List[Tuple[str, float]],
                                      export_path: str):
     header_columns = ['Point', 'MD', 'x', 'y', 'Depth', 'Altitude']
     column_indexes = [ColumnIndexes.md, ColumnIndexes.x_global,
@@ -70,7 +70,7 @@ def create_points_interpolation_file(well: Well,
     result_data = []
     for point_name, md_value in points_data:
         interpolation_data = well.interpolate_data(md_value=md_value)
-        if interpolation_data:
+        if interpolation_data.shape[0]:
             tmp_arr = [point_name] + interpolation_data[column_indexes].tolist()
             result_data.append(list(map(str, tmp_arr)))
 

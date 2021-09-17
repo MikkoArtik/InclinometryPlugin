@@ -339,13 +339,13 @@ class InclinometryCalc:
         export_path = os.path.join(self.export_folder, file_name)
         create_inclinometry_txt_file(well=well, output_file=export_path)
 
-        file_name = f'{self.well_name}_hor_trace.shp'
+        file_name = f'{self.well_name}_{self.processing_type}_hor_trace.shp'
         shp_path = os.path.join(self.export_folder, file_name)
         create_well_horizontal_trace_shp_file(well=well,
                                               well_name=self.well_name,
                                               export_path=shp_path)
 
-        file_name = f'{self.well_name}_MD_Points.dat'
+        file_name = f'{self.well_name}_{self.processing_type}_Points.dat'
         export_path = os.path.join(self.export_folder, file_name)
 
         self.export_interpolation_data(well, export_path)
