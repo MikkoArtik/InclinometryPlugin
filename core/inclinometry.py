@@ -23,7 +23,10 @@ class ColumnIndexes(NamedTuple):
     altitude = 6
     x_global = 7
     y_global = 8
-    length = 9
+
+    @property
+    def size(self) -> int:
+        return 9
 
 
 class DataTypeError(Exception):
@@ -47,7 +50,7 @@ class Well:
             self.__magnetic_declination = 0
 
         self.__incl_data = np.zeros(shape=(inclination_data.shape[0],
-                                           ColumnIndexes.length))
+                                           ColumnIndexes.size))
         if processing_type == MD_TYPE:
             self.__incl_data[:, ColumnIndexes.md] = inclination_data[:, 0]
             self.__incl_data[:, ColumnIndexes.incl] = inclination_data[:, 1]
