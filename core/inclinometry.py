@@ -132,7 +132,7 @@ class Well:
     def total_angle_correction(self) -> float:
         return self.magnetic_declination - self.meridian_correction
 
-    def calc_inclinometry_by_md(self):
+    def calc_inclinometry_by_md(self) -> None:
         arr = self.__incl_data
         for i in range(arr.shape[0]):
             az = arr[i, ColumnIndexes.az] + self.total_angle_correction
@@ -169,7 +169,7 @@ class Well:
             arr[i, ColumnIndexes.depth] = depth
             arr[i, ColumnIndexes.altitude] = self.__well_head[2] - depth
 
-    def calc_inclinometry_by_xyz(self):
+    def calc_inclinometry_by_xyz(self) -> None:
         arr = self.__incl_data
 
         x0, y0 = arr[0, ColumnIndexes.x_local], arr[0, ColumnIndexes.y_local]
@@ -201,7 +201,7 @@ class Well:
             arr[i, ColumnIndexes.y_global] = y_gk_head + dy_new
             arr[i, ColumnIndexes.altitude] = self.__well_head[2] - arr[i, ColumnIndexes.depth]
 
-    def processing(self):
+    def processing(self) -> None:
         if self.__processing_type == MD_TYPE:
             self.calc_inclinometry_by_md()
         else:

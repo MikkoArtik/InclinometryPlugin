@@ -50,16 +50,6 @@
      <height>25</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>by DxDy</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>by MD</string>
-    </property>
-   </item>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">

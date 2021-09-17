@@ -1,5 +1,5 @@
 import os.path
-from typing import List
+from typing import List, Tuple, NamedTuple
 import webbrowser as wb
 
 import numpy as np
@@ -189,6 +189,7 @@ class InclinometryCalc:
 
     def set_start_form_state(self):
         ui = self.dlg
+        ui.cbProcessingType.addItems([XY_TYPE, MD_TYPE])
         ui.eInclFilePath.clear()
         ui.ePointsFilePath.clear()
         ui.eWellName.clear()
@@ -205,6 +206,8 @@ class InclinometryCalc:
         ui.cbMDPointColumn.clear()
         ui.sbMagneticAzimuthCorrection.setValue(0)
         ui.eExportFolder.clear()
+
+        self.set_columns_enabling()
 
     def fill_incl_column_selectors(self, items):
         if len(items) == 0:
@@ -223,8 +226,8 @@ class InclinometryCalc:
         self.dlg.cbMDPointColumn.addItems(items)
 
     def set_columns_enabling(self):
-        index = self.dlg.cbProcessingType.currentIndex()
-        if index == 0:
+        proc_type = self.dlg.cbProcessingType.currentText()
+        if proc_type == XY_TYPE:
             self.dlg.cbDxColumn.setEnabled(True)
             self.dlg.cbDyColumn.setEnabled(True)
             self.dlg.cbVerticalDepthColumn.setEnabled(True)
@@ -234,7 +237,7 @@ class InclinometryCalc:
             self.processing_type = XY_TYPE
             self.magnetic_declination = 0
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(False)
-        else:
+        elif proc_type == MD_TYPE:
             self.dlg.cbDxColumn.setEnabled(False)
             self.dlg.cbDyColumn.setEnabled(False)
             self.dlg.cbVerticalDepthColumn.setEnabled(False)
@@ -243,6 +246,8 @@ class InclinometryCalc:
             self.dlg.cbInclinationColumn.setEnabled(True)
             self.processing_type = MD_TYPE
             self.dlg.sbMagneticAzimuthCorrection.setEnabled(True)
+        else:
+            pass
 
     def get_form_data(self):
         x, y = self.dlg.sbXValue.value(), self.dlg.sbYValue.value()
@@ -288,11 +293,11 @@ class InclinometryCalc:
         self.export_folder = show_folder_dialog()
         self.dlg.eExportFolder.setText(self.export_folder)
 
-    def get_used_points_column_indexes(self):
+    def get_used_points_column_indexes(self) -> Tuple[int, int]:
         col_1, col_2 = self.dlg.cbPointColumn, self.dlg.cbMDPointColumn
-        return [col_1.currentIndex(), col_2.currentIndex()]
+        return col_1.currentIndex(), col_2.currentIndex()
 
-    def get_used_incl_column_indexes(self):
+    def get_used_incl_column_indexes(self) -> List[int]:
         column_indexes = []
         if self.processing_type == XY_TYPE:
             column_indexes.append(self.dlg.cbDxColumn.currentIndex())
@@ -314,7 +319,7 @@ class InclinometryCalc:
         for item in self.points_file_data:
             point_name = item[name_col_index]
             md_value = float(item[md_col_index])
-            points_data.append([point_name, md_value])
+            points_data.append((point_name, md_value))
 
         create_points_interpolation_file(well=well, points_data=points_data,
                                          export_path=export_path)
@@ -335,7 +340,7 @@ class InclinometryCalc:
                     self.magnetic_declination, self.processing_type,
                     data)
 
-        file_name = f'{self.well_name}_inclinometry.txt'
+        file_name = f'{self.well_name}_{self.processing_type}_inclinometry.txt'
         export_path = os.path.join(self.export_folder, file_name)
         create_inclinometry_txt_file(well=well, output_file=export_path)
 
@@ -375,10 +380,11 @@ class InclinometryCalc:
         """Run method that performs all the real work"""
         # show the dialog
         self.set_styles()
+        self.set_start_form_state()
+
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
             pass
-        self.set_start_form_state()

@@ -3,14 +3,16 @@ name=Inclinometry calculator
 about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
 description=Plugin for inclinometry processing
 
-version=1.1
+version=1.2
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
 category=Plugins
 
-changelog=1.1 2021-05-27
+changelog=1.2 2021-09-17
+      * Code refactoring - create separate modules for importing and exporting
+       files
+      1.1 2021-05-27
       * Fix bug - add possibility calculation Points coordinates in DxDy mode
-
       1.0 2021-03-22
       * Fixed bug didn't show plugin icon on panel
       * Upload help file (available on plugin home page)
