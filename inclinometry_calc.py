@@ -189,6 +189,7 @@ class InclinometryCalc:
 
     def set_start_form_state(self):
         ui = self.dlg
+        ui.cbProcessingType.clear()
         ui.cbProcessingType.addItems([XY_TYPE, MD_TYPE])
         ui.eInclFilePath.clear()
         ui.ePointsFilePath.clear()
