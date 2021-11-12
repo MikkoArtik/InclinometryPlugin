@@ -3,7 +3,7 @@ name=Inclinometry calculator
 about=This tool calc inclinometry, exports result txt-file and creates shp file with horizontal projection wellbore
 description=Plugin for inclinometry processing
 
-version=1.2
+version=1.3
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
 category=Plugins
