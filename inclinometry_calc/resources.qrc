@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/inclinometry_calc" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
